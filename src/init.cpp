@@ -137,10 +137,10 @@ bool AppInit(int argc, char* argv[])
             // First part of help message is specific to SmallChange server / RPC client
             std::string strUsage = _("SmallChange version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  smallchange [options]                     " + "\n" +
-                  "  smallchange [options] <command> [params]  " + _("Send command to -server or smallchange") + "\n" +
-                  "  smallchange [options] help                " + _("List commands") + "\n" +
-                  "  smallchange [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  maclanecoin [options]                     " + "\n" +
+                  "  maclanecoin [options] <command> [params]  " + _("Send command to -server or maclanecoin") + "\n" +
+                  "  maclanecoin [options] help                " + _("List commands") + "\n" +
+                  "  maclanecoin [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -150,7 +150,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "smallchange:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "maclanecoin:"))
                 fCommandLine = true;
 
         if (fCommandLine)
@@ -220,8 +220,8 @@ extern double GetDifficulty(const CBlockIndex* blockindex = NULL);
 std::string HelpMessage()
 {
     string strUsage = _("Options:") + "\n" +
-        "  -conf=<file>           " + _("Specify configuration file (default: smallchange.conf)") + "\n" +
-        "  -pid=<file>            " + _("Specify pid file (default: smallchange.pid)") + "\n" +
+        "  -conf=<file>           " + _("Specify configuration file (default: maclanecoin.conf)") + "\n" +
+        "  -pid=<file>            " + _("Specify pid file (default: maclanecoin.pid)") + "\n" +
         "  -gen                   " + _("Generate coins") + "\n" +
         "  -gen=0                 " + _("Don't generate coins") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
@@ -429,7 +429,7 @@ bool AppInit2()
 
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
 
-    // Make sure only a single smallchange process is using the data directory.
+    // Make sure only a single maclanecoin process is using the data directory.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     FILE* file = fopen(pathLockFile.string().c_str(), "a"); // empty lock file; created if it doesn't exist.
     if (file) fclose(file);
@@ -590,7 +590,7 @@ bool AppInit2()
         strErrors << _("Error loading blkindex.dat") << "\n";
 
     // as LoadBlockIndex can take several minutes, it's possible the user
-    // requested to kill smallchange-qt during the last operation. If so, exit.
+    // requested to kill maclanecoin-qt during the last operation. If so, exit.
     // As the program has not fully started yet, Shutdown() is possibly overkill.
     if (fRequestShutdown)
     {
